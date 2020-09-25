@@ -1,0 +1,69 @@
+ <div class="container">  <!-- この行を追加 -->
+  <div class="row">      <!-- この行を追加 -->
+
+
+    <div class="col-xs-3">
+  <div class="profile-container">
+<tr>
+  <h3>User info</h3>
+  <%= attachment_image_tag @users, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
+  <h4>Name</h4>
+  <h4 class="profile-name"><%= @users.name %></h4>
+  <h4>Introduction</h4>
+  <h4 class="profile-name"><%= @users.introduction %></h4>
+  <% if @user.id == current_user.id %>
+    <p><%= link_to "プロフィール編集" %></p>
+  <% end %>
+  </tr>
+  <tr>
+  <h3>New book</h3>
+  <%= form_for(@book) do |f| %>
+ 
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+ 
+  <h4>Opinion</h4>
+  <%= f.text_area :body %>
+ 
+  <%= f.submit 'Create Book' %>
+ 
+<% end %>
+</tr>
+</div>
+          </div>
+
+             <div class="col-xs-9">  <!-- この行を追加 -->
+  <table class="table table-striped">
+
+<tr>
+<!-- 9/19追加分 --> 
+<h1>Book detail</h1>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= link_to user_path(@user.id) do %><%= attachment_image_tag @user, :profile_image, :fill, 30, 30, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
+            <%= @user.name %><% end %></td>
+            <td><%= @books.title %></td>
+            <td><%= @books.body %></td>
+            <!-- 省略できる -->
+            <% if @user.id == current_user.id %>
+            <td><%= link_to "Edit", edit_book_path(@books) %></td>
+            <td><%= link_to "Destroy", book_path(@books),method: :delete %></td>
+                  <% end %>
+          </tr>
+        </tbody>
+      </table>
+</tr>
+    </table>
+  </div>  <!-- この行を追加 -->
+      </div>  <!-- この行を追加 -->
+</div>    <!-- この行を追加 -->
